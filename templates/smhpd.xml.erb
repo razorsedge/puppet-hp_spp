@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ###                        -->
+<!-- ### File managed by Puppet -->
+<!-- ###                        -->
+<system-management-homepage>
+  <admin-group><%= scope.lookupvar('hp_spp::hpsmh::admin_group') %></admin-group>
+  <operator-group><%= scope.lookupvar('hp_spp::hpsmh::operator_group') %></operator-group>
+  <user-group><%= scope.lookupvar('hp_spp::hpsmh::user_group') %></user-group>
+  <allow-default-os-admin><%= scope.lookupvar('hp_spp::hpsmh::allow_default_os_admin') %></allow-default-os-admin>
+  <anonymous-access><%= scope.lookupvar('hp_spp::hpsmh::anonymous_access') %></anonymous-access>
+  <localaccess-enabled><%= scope.lookupvar('hp_spp::hpsmh::localaccess_enabled') %></localaccess-enabled>
+  <localaccess-type><%= scope.lookupvar('hp_spp::hpsmh::localaccess_type') %></localaccess-type>
+  <trustmode><%= scope.lookupvar('hp_spp::hpsmh::trustmode') %></trustmode>
+  <xenamelist><%= scope.lookupvar('hp_spp::hpsmh::xenamelist') %></xenamelist>
+  <ip-binding><%= scope.lookupvar('hp_spp::hpsmh::ip_binding') %></ip-binding>
+  <ip-binding-list><%= scope.lookupvar('hp_spp::hpsmh::ip_binding_list') %></ip-binding-list>
+  <ip-restricted-logins><%= scope.lookupvar('hp_spp::hpsmh::ip_restricted_logins') %></ip-restricted-logins>
+  <ip-restricted-include><%= scope.lookupvar('hp_spp::hpsmh::ip_restricted_include') %></ip-restricted-include>
+  <ip-restricted-exclude><%= scope.lookupvar('hp_spp::hpsmh::ip_restricted_exclude') %></ip-restricted-exclude>
+  <autostart><%= scope.lookupvar('hp_spp::hpsmh::autostart') %></autostart>
+  <timeoutsmh><%= scope.lookupvar('hp_spp::hpsmh::timeoutsmh') %></timeoutsmh>
+  <port2301><%= scope.lookupvar('hp_spp::hpsmh::port2301') %></port2301>
+  <iconview><%= scope.lookupvar('hp_spp::hpsmh::iconview') %></iconview>
+  <box-order><%= scope.lookupvar('hp_spp::hpsmh::box_order') %></box-order>
+  <box-item-order><%= scope.lookupvar('hp_spp::hpsmh::box_item_order') %></box-item-order>
+  <session-timeout><%= scope.lookupvar('hp_spp::hpsmh::session_timeout') %></session-timeout>
+  <ui-timeout><%= scope.lookupvar('hp_spp::hpsmh::ui_timeout') %></ui-timeout>
+  <httpd-error-log><%= scope.lookupvar('hp_spp::hpsmh::httpd_error_log') %></httpd-error-log>
+  <multihomed><%= scope.lookupvar('hp_spp::hpsmh::multihomed') %></multihomed>
+  <rotate-logs-size><%= scope.lookupvar('hp_spp::hpsmh::rotate_logs_size') %></rotate-logs-size>
+</system-management-homepage>
