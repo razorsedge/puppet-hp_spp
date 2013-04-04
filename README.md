@@ -1,5 +1,5 @@
-hp_spp Module
-===============
+Puppet HP Service Pack for ProLiant Module
+==========================================
 
 master branch: [![Build Status](https://secure.travis-ci.org/razorsedge/puppet-hp_spp.png?branch=master)](http://travis-ci.org/razorsedge/puppet-hp_spp)
 develop branch: [![Build Status](https://secure.travis-ci.org/razorsedge/puppet-hp_spp.png?branch=develop)](http://travis-ci.org/razorsedge/puppet-hp_spp)
@@ -7,30 +7,37 @@ develop branch: [![Build Status](https://secure.travis-ci.org/razorsedge/puppet-
 Introduction
 ------------
 
-This module ....
+This module manages the installation of the hardware monitoring aspects of the HP
+[Service Pack for ProLiant](http://www.hp.com/go/spp/)
+from the [Software Delivery Repository](http://downloads.linux.hp.com/SDR/).  It
+does not support the HP kernel drivers.
+
+This module currently only works on Red Hat Enterprise Linux.
 
 Actions:
 
-* None
+* Installs the SPP YUM repository.
+* Installs the HP Health packages and services.
+* Installs the HP SNMP Agent package, service, and configuration.
+* Installs the HP Systems Management Homepage packages, service, and configuration.
 
 OS Support:
 
-* RedHat family - tested on CentOS 5.5+ and CentOS 6.2+
-* SuSE family   - presently unsupported (patches welcome)
-* Debian family - presently unsupported (patches welcome)
+* RedHat - tested on RHEL 6.4
+* SuSE   - presently unsupported (patches welcome)
 
 Class documentation is available via puppetdoc.
 
 Examples
 --------
 
-    include 'hp_spp'
-
+      # Parameterized Class:
+      class { 'hp_spp': }
 
 Notes
 -----
 
-* None
+* Only tested on RedHat 6.4 x86_64 on a HP DL360 G5.
 
 Issues
 ------
