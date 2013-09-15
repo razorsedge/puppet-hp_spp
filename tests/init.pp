@@ -9,4 +9,6 @@
 # Learn more about module testing here:
 #  http://docs.puppetlabs.com/guides/tests_smoke.html
 #
-class { 'hp_spp': }
+class { 'hp_spp':
+  cmalocalhostrwcommstr => 'SomeSecureString',
+}
