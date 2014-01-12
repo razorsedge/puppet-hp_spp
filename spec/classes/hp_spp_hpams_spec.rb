@@ -41,7 +41,7 @@ describe 'hp_spp::hpams', :type => 'class' do
           :manufacturer    => 'HP'
         }
         end
-        it { should include_class('hp_spp::repo') }
+        it { should contain_class('hp_spp::repo') }
         it { should contain_package('hp-ams').with_ensure('present') }
         it { should contain_service('hp-ams').with_ensure('running') }
       end
@@ -62,7 +62,7 @@ describe 'hp_spp::hpams', :type => 'class' do
           :manufacturer    => 'HP'
         }
         end
-        it { should include_class('hp_spp::repo') }
+        it { should contain_class('hp_spp::repo') }
         it { should contain_package('hp-ams').with_ensure('latest') }
         it { should contain_service('hp-ams').with_ensure('stopped') }
       end
