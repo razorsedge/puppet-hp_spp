@@ -18,7 +18,7 @@ describe 'hp_spp::hpsnmp', :type => 'class' do
   end
 
   context 'on a supported operatingsystem, non-HP platform' do
-    (['RedHat']).each do |os|
+    (['RedHat','CentOS']).each do |os|
       context "for operatingsystem #{os}" do
         let(:params) {{ :cmalocalhostrwcommstr => 'aString' }}
         let :facts do {
@@ -40,7 +40,7 @@ describe 'hp_spp::hpsnmp', :type => 'class' do
   end
 
   context 'on a supported operatingsystem, HP platform, default parameters' do
-    (['RedHat']).each do |os|
+    (['RedHat','CentOS']).each do |os|
       context "for operatingsystem #{os} operatingsystemrelease 6.0" do
         let(:pre_condition) { ['user { "hpsmh": ensure => "present", uid => "490" }', 'group {"hpsmh": ensure => "present", gid => "490" }'].join("\n") }
         let(:params) {{ :cmalocalhostrwcommstr => 'aString' }}
@@ -71,7 +71,7 @@ describe 'hp_spp::hpsnmp', :type => 'class' do
   end
 
   context 'on a supported operatingsystem, HP platform, custom parameters' do
-    (['RedHat']).each do |os|
+    (['RedHat','CentOS']).each do |os|
       context "for operatingsystem #{os} operatingsystemrelease 6.0" do
         let(:pre_condition) { ['user { "hpsmh": ensure => "present", uid => "490" }', 'group {"hpsmh": ensure => "present", gid => "490" }'].join("\n") }
         let :params do {

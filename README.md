@@ -24,6 +24,7 @@ Actions:
 OS Support:
 
 * RedHat - tested on RHEL 6.4
+* CentOS - tested on CentOS 6.5
 * SuSE   - presently unsupported (patches welcome)
 
 Class documentation is available via puppetdoc.
@@ -47,7 +48,8 @@ Examples
 Notes
 -----
 
-* Only tested on RedHat 6.4 x86_64 on a HP DL360 G5.
+* Tested on RedHat 6.4 x86_64 on a HP DL360 G5.
+* Tested on Centos 6.6 x86_64 on a HP ProLiant BL685c G1.
 
 Issues
 ------

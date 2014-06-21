@@ -83,7 +83,7 @@ class hp_spp (
   case $::manufacturer {
     'HP': {
       case $::operatingsystem {
-        'RedHat': {
+        /RedHat|CentOS/: {
           @group { 'hpsmh':
             ensure => $user_ensure,
             gid    => $smh_gid,
