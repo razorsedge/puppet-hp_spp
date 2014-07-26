@@ -76,6 +76,13 @@ class hp_spp::repo (
             priority => $hp_spp::params::yum_priority,
             protect  => $hp_spp::params::yum_protect,
           }
+
+          file { '/etc/yum.repos.d/HP-spp.repo':
+            ensure => 'file',
+            owner  => 'root',
+            group  => 'root',
+            mode   => '0644',
+          }
         }
         default: { }
       }
