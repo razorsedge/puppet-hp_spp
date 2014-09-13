@@ -2,11 +2,12 @@
   "name": "razorsedge-hp_spp",
   "version": "0.0.1",
   "author": "razorsedge",
-  "summary": "Install and manage the HP Service Pack for ProLiant hardware monitoring installation.",
-  "description": "UNKNOWN",
+  "summary": "HP Service Pack for ProLiant hardware monitoring.",
   "license": "Apache License, Version 2.0",
   "source": "https://github.com/razorsedge/puppet-hp_spp.git",
   "project_page": "https://github.com/razorsedge/puppet-hp_spp",
+  "issues_url": "https://github.com/razorsedge/puppet-hp_spp/issues",
+  "tags": [ "ProLiant", "RHEL", "rhel", "hardware", "HP" ],
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
