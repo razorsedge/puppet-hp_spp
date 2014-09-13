@@ -3,14 +3,6 @@
 require 'spec_helper'
 
 describe 'hp_spp::hpsmh', :type => 'class' do
-  # Convenience helper for returning parameters for a type from the
-  # catalogue.
-  #
-  # TODO: find a place for this, potentially rspec-puppet.
-  def get_param(type, title, param)
-    catalogue.resource(type, title).send(:parameters)[param.to_sym]
-  end
-
   context 'on a non-supported operatingsystem' do
     let :facts do {
       :osfamily        => 'foo',
@@ -64,32 +56,33 @@ describe 'hp_spp::hpsmh', :type => 'class' do
         it { should contain_package('hpsmh').with_ensure('present') }
         it { should contain_file('hpsmhconfig').with_ensure('present') }
         it 'should populate File[hpsmhconfig] with default values' do
-          content = get_param('file', 'hpsmhconfig', 'content')
-          content.should =~ /<admin-group><\/admin-group>/
-          content.should =~ /<operator-group><\/operator-group>/
-          content.should =~ /<user-group><\/user-group>/
-          content.should =~ /<allow-default-os-admin>true<\/allow-default-os-admin>/
-          content.should =~ /<anonymous-access>false<\/anonymous-access>/
-          content.should =~ /<localaccess-enabled>false<\/localaccess-enabled>/
-          content.should =~ /<localaccess-type>Anonymous<\/localaccess-type>/
-          content.should =~ /<trustmode>TrustByCert<\/trustmode>/
-          content.should =~ /<xenamelist><\/xenamelist>/
-          content.should =~ /<ip-binding>false<\/ip-binding>/
-          content.should =~ /<ip-binding-list><\/ip-binding-list>/
-          content.should =~ /<ip-restricted-logins>false<\/ip-restricted-logins>/
-          content.should =~ /<ip-restricted-include><\/ip-restricted-include>/
-          content.should =~ /<ip-restricted-exclude><\/ip-restricted-exclude>/
-          content.should =~ /<autostart>false<\/autostart>/
-          content.should =~ /<timeoutsmh>30<\/timeoutsmh>/
-          content.should =~ /<port2301>true<\/port2301>/
-          content.should =~ /<iconview>false<\/iconview>/
-          content.should =~ /<box-order>status<\/box-order>/
-          content.should =~ /<box-item-order>status<\/box-item-order>/
-          content.should =~ /<session-timeout>15<\/session-timeout>/
-          content.should =~ /<ui-timeout>120<\/ui-timeout>/
-          content.should =~ /<httpd-error-log>false<\/httpd-error-log>/
-          content.should =~ /<multihomed><\/multihomed>/
-          content.should =~ /<rotate-logs-size>5<\/rotate-logs-size>/
+          verify_contents(subject, 'hpsmhconfig', [
+            '  <admin-group></admin-group>',
+            '  <operator-group></operator-group>',
+            '  <user-group></user-group>',
+            '  <allow-default-os-admin>true</allow-default-os-admin>',
+            '  <anonymous-access>false</anonymous-access>',
+            '  <localaccess-enabled>false</localaccess-enabled>',
+            '  <localaccess-type>Anonymous</localaccess-type>',
+            '  <trustmode>TrustByCert</trustmode>',
+            '  <xenamelist></xenamelist>',
+            '  <ip-binding>false</ip-binding>',
+            '  <ip-binding-list></ip-binding-list>',
+            '  <ip-restricted-logins>false</ip-restricted-logins>',
+            '  <ip-restricted-include></ip-restricted-include>',
+            '  <ip-restricted-exclude></ip-restricted-exclude>',
+            '  <autostart>false</autostart>',
+            '  <timeoutsmh>30</timeoutsmh>',
+            '  <port2301>true</port2301>',
+            '  <iconview>false</iconview>',
+            '  <box-order>status</box-order>',
+            '  <box-item-order>status</box-item-order>',
+            '  <session-timeout>15</session-timeout>',
+            '  <ui-timeout>120</ui-timeout>',
+            '  <httpd-error-log>false</httpd-error-log>',
+            '  <multihomed></multihomed>',
+            '  <rotate-logs-size>5</rotate-logs-size>',
+          ])
         end
         it { should contain_service('hpsmhd').with(
           :ensure => 'running',
@@ -104,8 +97,33 @@ describe 'hp_spp::hpsmh', :type => 'class' do
       context "for operatingsystem #{os} operatingsystemrelease 6.0" do
         let(:pre_condition) { ['user { "hpsmh": ensure => "present", uid => "490" }', 'group {"hpsmh": ensure => "present", gid => "490" }'].join("\n") }
         let :params do {
-          :autoupgrade    => true,
-          :service_ensure => 'stopped'
+          :autoupgrade            => true,
+          :service_ensure         => 'stopped',
+          :admin_group            => 'administrators',
+          :operator_group         => 'operators',
+          :user_group             => 'users',
+          :allow_default_os_admin => 'false',
+          :anonymous_access       => 'true',
+          :localaccess_enabled    => 'true',
+          :localaccess_type       => 'Anonymous',
+          :trustmode              => 'TrustByCert',
+          :xenamelist             => 'somevalue',
+          :ip_binding             => 'true',
+          :ip_binding_list        => '1.2.3.4',
+          :ip_restricted_logins   => 'true',
+          :ip_restricted_include  => '2.3.4.5/24',
+          :ip_restricted_exclude  => '6.7.8.9/24',
+          :autostart              => 'true',
+          :timeoutsmh             => '4000',
+          :port2301               => 'false',
+          :iconview               => 'true',
+          :box_order              => 'status',
+          :box_item_order         => 'status',
+          :session_timeout        => '1000',
+          :ui_timeout             => '5000',
+          :httpd_error_log        => 'true',
+          :multihomed             => 'true',
+          :rotate_logs_size       => '2000'
         }
         end
         let :facts do {
@@ -123,57 +141,33 @@ describe 'hp_spp::hpsmh', :type => 'class' do
         it { should contain_package('hpsmh').with_ensure('latest') }
         it { should contain_file('hpsmhconfig').with_ensure('present') }
         it 'should populate File[hpsmhconfig] with custom values' do
-          params[:admin_group] = 'administrators'
-          params[:operator_group] = 'operators'
-          params[:user_group] = 'users'
-          params[:allow_default_os_admin] = 'false'
-          params[:anonymous_access] = 'true'
-          params[:localaccess_enabled] = 'true'
-          params[:localaccess_type] = 'Anonymous'
-          params[:trustmode] = 'TrustByCert'
-          params[:xenamelist] = 'somevalue'
-          params[:ip_binding] = 'true'
-          params[:ip_binding_list] = '1.2.3.4'
-          params[:ip_restricted_logins] = 'true'
-          params[:ip_restricted_include] = '2.3.4.5/24'
-          params[:ip_restricted_exclude] = '6.7.8.9/24'
-          params[:autostart] = 'true'
-          params[:timeoutsmh] = '4000'
-          params[:port2301] = 'false'
-          params[:iconview] = 'true'
-          params[:box_order] = 'status'
-          params[:box_item_order] = 'status'
-          params[:session_timeout] = '1000'
-          params[:ui_timeout] = '5000'
-          params[:httpd_error_log] = 'true'
-          params[:multihomed] = 'true'
-          params[:rotate_logs_size] = '2000'
-          content = get_param('file', 'hpsmhconfig', 'content')
-          content.should =~ /<admin-group>administrators<\/admin-group>/
-          content.should =~ /<operator-group>operators<\/operator-group>/
-          content.should =~ /<user-group>users<\/user-group>/
-          content.should =~ /<allow-default-os-admin>false<\/allow-default-os-admin>/
-          content.should =~ /<anonymous-access>true<\/anonymous-access>/
-          content.should =~ /<localaccess-enabled>true<\/localaccess-enabled>/
-          content.should =~ /<localaccess-type>Anonymous<\/localaccess-type>/
-          content.should =~ /<trustmode>TrustByCert<\/trustmode>/
-          content.should =~ /<xenamelist>somevalue<\/xenamelist>/
-          content.should =~ /<ip-binding>true<\/ip-binding>/
-          content.should =~ /<ip-binding-list>1.2.3.4<\/ip-binding-list>/
-          content.should =~ /<ip-restricted-logins>true<\/ip-restricted-logins>/
-          content.should =~ /<ip-restricted-include>2.3.4.5\/24<\/ip-restricted-include>/
-          content.should =~ /<ip-restricted-exclude>6.7.8.9\/24<\/ip-restricted-exclude>/
-          content.should =~ /<autostart>true<\/autostart>/
-          content.should =~ /<timeoutsmh>4000<\/timeoutsmh>/
-          content.should =~ /<port2301>false<\/port2301>/
-          content.should =~ /<iconview>true<\/iconview>/
-          content.should =~ /<box-order>status<\/box-order>/
-          content.should =~ /<box-item-order>status<\/box-item-order>/
-          content.should =~ /<session-timeout>1000<\/session-timeout>/
-          content.should =~ /<ui-timeout>5000<\/ui-timeout>/
-          content.should =~ /<httpd-error-log>true<\/httpd-error-log>/
-          content.should =~ /<multihomed>true<\/multihomed>/
-          content.should =~ /<rotate-logs-size>2000<\/rotate-logs-size>/
+          verify_contents(subject, 'hpsmhconfig', [
+            '  <admin-group>administrators</admin-group>',
+            '  <operator-group>operators</operator-group>',
+            '  <user-group>users</user-group>',
+            '  <allow-default-os-admin>false</allow-default-os-admin>',
+            '  <anonymous-access>true</anonymous-access>',
+            '  <localaccess-enabled>true</localaccess-enabled>',
+            '  <localaccess-type>Anonymous</localaccess-type>',
+            '  <trustmode>TrustByCert</trustmode>',
+            '  <xenamelist>somevalue</xenamelist>',
+            '  <ip-binding>true</ip-binding>',
+            '  <ip-binding-list>1.2.3.4</ip-binding-list>',
+            '  <ip-restricted-logins>true</ip-restricted-logins>',
+            '  <ip-restricted-include>2.3.4.5/24</ip-restricted-include>',
+            '  <ip-restricted-exclude>6.7.8.9/24</ip-restricted-exclude>',
+            '  <autostart>true</autostart>',
+            '  <timeoutsmh>4000</timeoutsmh>',
+            '  <port2301>false</port2301>',
+            '  <iconview>true</iconview>',
+            '  <box-order>status</box-order>',
+            '  <box-item-order>status</box-item-order>',
+            '  <session-timeout>1000</session-timeout>',
+            '  <ui-timeout>5000</ui-timeout>',
+            '  <httpd-error-log>true</httpd-error-log>',
+            '  <multihomed>true</multihomed>',
+            '  <rotate-logs-size>2000</rotate-logs-size>',
+          ])
         end
         it { should contain_service('hpsmhd').with_ensure('stopped') }
       end

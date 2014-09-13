@@ -132,12 +132,12 @@ class hp_spp::hpsnmp (
         }
 
         file { 'snmpd.conf':
-          ensure  => $file_ensure,
-          mode    => '0660',
-          owner   => 'root',
-          group   => 'hpsmh',
-          path    => '/etc/snmp/snmpd.conf',
-          notify  => Exec['hpsnmpconfig'],
+          ensure => $file_ensure,
+          mode   => '0660',
+          owner  => 'root',
+          group  => 'hpsmh',
+          path   => '/etc/snmp/snmpd.conf',
+          notify => Exec['hpsnmpconfig'],
         }
 
         service { 'snmpd':
@@ -170,9 +170,9 @@ class hp_spp::hpsnmp (
       }
 
       package { 'hp-snmp-agents':
-        ensure   => $package_ensure,
-#        require  => Package['hphealth'],
-        require  => Package['snmpd'],
+        ensure  => $package_ensure,
+#        require => Package['hphealth'],
+        require => Package['snmpd'],
       }
 
       file { '/opt/hp/hp-snmp-agents/cma.conf':
