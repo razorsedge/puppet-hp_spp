@@ -68,11 +68,11 @@ class hp_spp::params {
     $safe_service_enable = $service_enable
   }
 
-  $gpg_path = '/SDR/downloads/ServicePackforProLiant/'
+  $gpg_path = '/SDR/'
 
   case $::operatingsystem {
     'RedHat': {
-      $yum_path = '/SDR/downloads/ServicePackforProLiant/RedHat/$releasever/$basearch/'
+      $yum_path = '/SDR/repo/spp/RedHat/$releasever/$basearch/'
       case $::operatingsystemrelease {
         /^5.[0-2]$/: {
           $ipmi_package_name = 'hp-OpenIPMI'

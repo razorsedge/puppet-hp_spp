@@ -44,8 +44,9 @@ describe 'hp_spp::repo', :type => 'class' do
           :descr    => 'HP Software Delivery Repository for Service Pack for ProLiant',
           :enabled  => '1',
           :gpgcheck => '1',
-          :gpgkey   => 'http://downloads.linux.hp.com/SDR/downloads/ServicePackforProLiant/GPG-KEY-ServicePackforProLiant',
-          :baseurl  => 'http://downloads.linux.hp.com/SDR/downloads/ServicePackforProLiant/RedHat/$releasever/$basearch/current/',
+          :gpgkey   => 'http://downloads.linux.hp.com/SDR/hpPublicKey1024.pub
+    http://downloads.linux.hp.com/SDR/hpPublicKey2048.pub',
+          :baseurl  => 'http://downloads.linux.hp.com/SDR/repo/spp/RedHat/$releasever/$basearch/current/',
           :priority => '50',
           :protect  => '0'
         )}
