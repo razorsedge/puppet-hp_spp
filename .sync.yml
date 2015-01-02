@@ -2,3 +2,6 @@
 Rakefile:
   extra_disabled_lint_checks:
   - 'disable_quoted_booleans'
+.puppet-lint.rc:
+  extra_disabled_lint_checks:
+  - '--no-quoted_booleans-check'
