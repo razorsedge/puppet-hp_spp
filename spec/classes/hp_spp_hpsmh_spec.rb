@@ -56,7 +56,7 @@ describe 'hp_spp::hpsmh', :type => 'class' do
         it { should contain_package('hpsmh').with_ensure('present') }
         it { should contain_file('hpsmhconfig').with_ensure('present') }
         it 'should populate File[hpsmhconfig] with default values' do
-          verify_contents(subject, 'hpsmhconfig', [
+          verify_contents(catalogue, 'hpsmhconfig', [
             '  <admin-group></admin-group>',
             '  <operator-group></operator-group>',
             '  <user-group></user-group>',
@@ -141,7 +141,7 @@ describe 'hp_spp::hpsmh', :type => 'class' do
         it { should contain_package('hpsmh').with_ensure('latest') }
         it { should contain_file('hpsmhconfig').with_ensure('present') }
         it 'should populate File[hpsmhconfig] with custom values' do
-          verify_contents(subject, 'hpsmhconfig', [
+          verify_contents(catalogue, 'hpsmhconfig', [
             '  <admin-group>administrators</admin-group>',
             '  <operator-group>operators</operator-group>',
             '  <user-group>users</user-group>',
