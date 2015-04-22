@@ -100,20 +100,20 @@ class hp_spp (
           anchor { 'hp_spp::begin': }
           anchor { 'hp_spp::end': }
 
-          class { 'hp_spp::repo':
+          class { '::hp_spp::repo':
             ensure      => $ensure,
             yum_server  => $yum_server,
             yum_path    => $yum_path,
             gpg_path    => $gpg_path,
             spp_version => $spp_version,
           }
-          class { 'hp_spp::hphealth':
+          class { '::hp_spp::hphealth':
             ensure         => $ensure,
             autoupgrade    => $autoupgrade,
             service_ensure => $service_ensure,
             service_enable => $service_enable,
           }
-          class { 'hp_spp::hpsnmp':
+          class { '::hp_spp::hpsnmp':
             ensure                    => $ensure,
             autoupgrade               => $autoupgrade,
             service_ensure            => $service_ensure,
@@ -128,7 +128,7 @@ class hp_spp (
             manage_snmp               => $manage_snmp,
           }
           if $install_smh {
-            class { 'hp_spp::hpsmh':
+            class { '::hp_spp::hpsmh':
               ensure         => $ensure,
               autoupgrade    => $autoupgrade,
               service_ensure => $service_ensure,
