@@ -93,6 +93,17 @@ class hp_spp::params {
           $ilo_service_enable = undef
         }
       }
+      case $::operatingsystemrelease {
+        /^6/: {
+          $arrayweb_package_name = 'cpqacuxe'
+          $arraycli_package_name = 'hpacucli'
+        }
+        /^7/: {
+          $arrayweb_package_name = 'hpssa'
+          $arraycli_package_name = 'hpssacli'
+        }
+        default: { }
+      }
     }
     # If we are not on a supported OS, do not do anything.
     default: { }
