@@ -7,7 +7,7 @@
   "project_page": "https://github.com/razorsedge/puppet-hp_spp",
   "issues_url": "https://github.com/razorsedge/puppet-hp_spp/issues",
   "source": "https://github.com/razorsedge/puppet-hp_spp.git",
-  "tags": [ "ProLiant", "RHEL", "rhel", "hardware", "HP", "psp" ],
+  "tags": [ "HP", "ProLiant", "hardware", "spp", "psp" ],
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
