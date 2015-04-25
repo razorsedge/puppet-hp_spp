@@ -28,6 +28,7 @@ describe 'hp_spp::hpsmh', :type => 'class' do
         it { should_not contain_group('hpsmh') }
         it { should_not contain_user('hpsmh') }
         it { should_not contain_package('cpqacuxe') }
+        it { should_not contain_package('hpssa') }
         it { should_not contain_package('hpdiags') }
         it { should_not contain_package('hp-smh-templates') }
         it { should_not contain_package('hpsmh') }
@@ -39,6 +40,58 @@ describe 'hp_spp::hpsmh', :type => 'class' do
 
   context 'on a supported operatingsystem, HP platform, default parameters' do
     (['RedHat']).each do |os|
+      context "for operatingsystem #{os} operatingsystemrelease 5.0" do
+        let(:pre_condition) { ['user { "hpsmh": ensure => "present", uid => "490" }', 'group {"hpsmh": ensure => "present", gid => "490" }'].join("\n") }
+        let :facts do {
+          :operatingsystem        => os,
+          :operatingsystemrelease => '5.0',
+          :lsbmajdistrelease      => '5',
+          :manufacturer           => 'HP'
+        }
+        end
+        it { should contain_group('hpsmh').with_ensure('present').with_gid('490') }
+        it { should contain_user('hpsmh').with_ensure('present').with_uid('490') }
+        it { should_not contain_package('cpqacuxe') }
+        it { should_not contain_package('hpssa') }
+        it { should contain_package('hpdiags').with_ensure('present') }
+        it { should contain_package('hp-smh-templates').with_ensure('present') }
+        it { should contain_package('hpsmh').with_ensure('present') }
+        it { should contain_file('hpsmhconfig').with_ensure('present') }
+        it 'should populate File[hpsmhconfig] with default values' do
+          verify_contents(catalogue, 'hpsmhconfig', [
+            '  <admin-group></admin-group>',
+            '  <operator-group></operator-group>',
+            '  <user-group></user-group>',
+            '  <allow-default-os-admin>true</allow-default-os-admin>',
+            '  <anonymous-access>false</anonymous-access>',
+            '  <localaccess-enabled>false</localaccess-enabled>',
+            '  <localaccess-type>Anonymous</localaccess-type>',
+            '  <trustmode>TrustByCert</trustmode>',
+            '  <xenamelist></xenamelist>',
+            '  <ip-binding>false</ip-binding>',
+            '  <ip-binding-list></ip-binding-list>',
+            '  <ip-restricted-logins>false</ip-restricted-logins>',
+            '  <ip-restricted-include></ip-restricted-include>',
+            '  <ip-restricted-exclude></ip-restricted-exclude>',
+            '  <autostart>false</autostart>',
+            '  <timeoutsmh>30</timeoutsmh>',
+            '  <port2301>true</port2301>',
+            '  <iconview>false</iconview>',
+            '  <box-order>status</box-order>',
+            '  <box-item-order>status</box-item-order>',
+            '  <session-timeout>15</session-timeout>',
+            '  <ui-timeout>120</ui-timeout>',
+            '  <httpd-error-log>false</httpd-error-log>',
+            '  <multihomed></multihomed>',
+            '  <rotate-logs-size>5</rotate-logs-size>',
+          ])
+        end
+        it { should contain_service('hpsmhd').with(
+          :ensure => 'running',
+          :enable => true
+        )}
+      end
+
       context "for operatingsystem #{os} operatingsystemrelease 6.0" do
         let(:pre_condition) { ['user { "hpsmh": ensure => "present", uid => "490" }', 'group {"hpsmh": ensure => "present", gid => "490" }'].join("\n") }
         let :facts do {
@@ -51,12 +104,65 @@ describe 'hp_spp::hpsmh', :type => 'class' do
         it { should contain_group('hpsmh').with_ensure('present').with_gid('490') }
         it { should contain_user('hpsmh').with_ensure('present').with_uid('490') }
         it { should contain_package('cpqacuxe').with_ensure('present') }
+        it { should_not contain_package('hpssa') }
         it { should contain_package('hpdiags').with_ensure('present') }
         it { should contain_package('hp-smh-templates').with_ensure('present') }
         it { should contain_package('hpsmh').with_ensure('present') }
         it { should contain_file('hpsmhconfig').with_ensure('present') }
         it 'should populate File[hpsmhconfig] with default values' do
-          verify_contents(subject, 'hpsmhconfig', [
+          verify_contents(catalogue, 'hpsmhconfig', [
+            '  <admin-group></admin-group>',
+            '  <operator-group></operator-group>',
+            '  <user-group></user-group>',
+            '  <allow-default-os-admin>true</allow-default-os-admin>',
+            '  <anonymous-access>false</anonymous-access>',
+            '  <localaccess-enabled>false</localaccess-enabled>',
+            '  <localaccess-type>Anonymous</localaccess-type>',
+            '  <trustmode>TrustByCert</trustmode>',
+            '  <xenamelist></xenamelist>',
+            '  <ip-binding>false</ip-binding>',
+            '  <ip-binding-list></ip-binding-list>',
+            '  <ip-restricted-logins>false</ip-restricted-logins>',
+            '  <ip-restricted-include></ip-restricted-include>',
+            '  <ip-restricted-exclude></ip-restricted-exclude>',
+            '  <autostart>false</autostart>',
+            '  <timeoutsmh>30</timeoutsmh>',
+            '  <port2301>true</port2301>',
+            '  <iconview>false</iconview>',
+            '  <box-order>status</box-order>',
+            '  <box-item-order>status</box-item-order>',
+            '  <session-timeout>15</session-timeout>',
+            '  <ui-timeout>120</ui-timeout>',
+            '  <httpd-error-log>false</httpd-error-log>',
+            '  <multihomed></multihomed>',
+            '  <rotate-logs-size>5</rotate-logs-size>',
+          ])
+        end
+        it { should contain_service('hpsmhd').with(
+          :ensure => 'running',
+          :enable => true
+        )}
+      end
+
+      context "for operatingsystem #{os} operatingsystemrelease 7.0" do
+        let(:pre_condition) { ['user { "hpsmh": ensure => "present", uid => "490" }', 'group {"hpsmh": ensure => "present", gid => "490" }'].join("\n") }
+        let :facts do {
+          :operatingsystem        => os,
+          :operatingsystemrelease => '7.0',
+          :lsbmajdistrelease      => '7',
+          :manufacturer           => 'HP'
+        }
+        end
+        it { should contain_group('hpsmh').with_ensure('present').with_gid('490') }
+        it { should contain_user('hpsmh').with_ensure('present').with_uid('490') }
+        it { should_not contain_package('cpqacuxe') }
+        it { should contain_package('hpssa').with_ensure('present') }
+        it { should contain_package('hpdiags').with_ensure('present') }
+        it { should contain_package('hp-smh-templates').with_ensure('present') }
+        it { should contain_package('hpsmh').with_ensure('present') }
+        it { should contain_file('hpsmhconfig').with_ensure('present') }
+        it 'should populate File[hpsmhconfig] with default values' do
+          verify_contents(catalogue, 'hpsmhconfig', [
             '  <admin-group></admin-group>',
             '  <operator-group></operator-group>',
             '  <user-group></user-group>',
@@ -141,7 +247,7 @@ describe 'hp_spp::hpsmh', :type => 'class' do
         it { should contain_package('hpsmh').with_ensure('latest') }
         it { should contain_file('hpsmhconfig').with_ensure('present') }
         it 'should populate File[hpsmhconfig] with custom values' do
-          verify_contents(subject, 'hpsmhconfig', [
+          verify_contents(catalogue, 'hpsmhconfig', [
             '  <admin-group>administrators</admin-group>',
             '  <operator-group>operators</operator-group>',
             '  <user-group>users</user-group>',

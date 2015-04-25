@@ -1,17 +1,17 @@
 {
   "name": "razorsedge-hp_spp",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "author": "razorsedge",
   "summary": "HP Service Pack for ProLiant hardware monitoring.",
-  "license": "Apache License, Version 2.0",
-  "source": "https://github.com/razorsedge/puppet-hp_spp.git",
+  "license": "Apache-2.0",
   "project_page": "https://github.com/razorsedge/puppet-hp_spp",
   "issues_url": "https://github.com/razorsedge/puppet-hp_spp/issues",
-  "tags": [ "ProLiant", "RHEL", "rhel", "hardware", "HP" ],
+  "source": "https://github.com/razorsedge/puppet-hp_spp.git",
+  "tags": [ "HP", "ProLiant", "hardware", "spp", "psp" ],
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">=2.3.0"
+      "version_requirement": ">=2.3.0 <5.0.0"
     }
   ],
   "operatingsystem_support": [

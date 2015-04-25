@@ -102,8 +102,10 @@ class hp_spp::hphealth (
         ensure => $package_ensure,
       }
 
-      package { 'hpacucli':
-        ensure => $package_ensure,
+      if $hp_spp::params::arraycli_package_name {
+        package { $hp_spp::params::arraycli_package_name:
+          ensure => $package_ensure,
+        }
       }
 
       service { 'hp-health':
