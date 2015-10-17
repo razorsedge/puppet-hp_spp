@@ -73,7 +73,7 @@ class hp_spp::repo (
             gpgcheck => 1,
             # gpgkey has to be a string value with an indented second line
             # per http://projects.puppetlabs.com/issues/8867
-            gpgkey   => "${yum_server}${gpg_path}hpPublicKey1024.pub\n    ${yum_server}${gpg_path}hpPublicKey2048.pub",
+            gpgkey   => "${yum_server}${gpg_path}hpPublicKey1024.pub\n    ${yum_server}${gpg_path}hpPublicKey2048.pub\n    ${yum_server}${gpg_path}hpPublicKey2048_key1.pub",
             baseurl  => "${yum_server}${yum_path}${spp_version}/",
             priority => $hp_spp::params::yum_priority,
             protect  => $hp_spp::params::yum_protect,

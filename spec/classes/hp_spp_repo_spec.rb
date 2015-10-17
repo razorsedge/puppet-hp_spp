@@ -45,7 +45,8 @@ describe 'hp_spp::repo', :type => 'class' do
           :enabled  => '1',
           :gpgcheck => '1',
           :gpgkey   => 'http://downloads.linux.hp.com/SDR/hpPublicKey1024.pub
-    http://downloads.linux.hp.com/SDR/hpPublicKey2048.pub',
+    http://downloads.linux.hp.com/SDR/hpPublicKey2048.pub
+    http://downloads.linux.hp.com/SDR/hpPublicKey2048_key1.pub',
           :baseurl  => 'http://downloads.linux.hp.com/SDR/repo/spp/RedHat/$releasever/$basearch/current/',
           :priority => '50',
           :protect  => '0'
