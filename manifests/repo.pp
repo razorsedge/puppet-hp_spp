@@ -10,7 +10,7 @@
 #
 # [*yum_server*]
 #   URI of the YUM server.
-#   Default: http://downloads.linux.hp.com
+#   Default: http://downloads.linux.hpe.com
 #
 # [*yum_path*]
 #   The path to add to the $yum_server URI.

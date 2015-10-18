@@ -9,7 +9,7 @@ Introduction
 
 This module manages the installation of the hardware monitoring aspects of the HP
 [Service Pack for ProLiant](http://www.hp.com/go/spp/)
-from the [Software Delivery Repository](http://downloads.linux.hp.com/SDR/).  It
+from the [Software Delivery Repository](http://downloads.linux.hpe.com/SDR/).  It
 does not support the HP kernel drivers.
 
 This module currently only works on Red Hat Enterprise Linux.

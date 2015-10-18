@@ -25,7 +25,7 @@ class hp_spp::params {
   # If we have a top scope variable defined, use it, otherwise fall back to a
   # hardcoded value.
   $yum_server = $::hp_spp_yum_server ? {
-    undef   => 'http://downloads.linux.hp.com',
+    undef   => 'http://downloads.linux.hpe.com',
     default => $::hp_spp_yum_server,
   }
 
