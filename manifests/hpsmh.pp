@@ -187,6 +187,7 @@ class hp_spp::hpsmh (
         $package_ensure = 'present'
       }
       $file_ensure = 'present'
+      $file_ensure_link = 'link'
       if $service_ensure in [ running, stopped ] {
         $service_ensure_real = $service_ensure
         $service_enable_real = $service_enable
@@ -197,6 +198,7 @@ class hp_spp::hpsmh (
     /(absent)/: {
       $package_ensure = 'absent'
       $file_ensure = 'absent'
+      $file_ensure_link = 'absent'
       $service_ensure_real = 'stopped'
       $service_enable_real = false
     }
@@ -276,6 +278,13 @@ class hp_spp::hpsmh (
         hasrestart => true,
         hasstatus  => true,
         require    => Package['hpsmh'],
+      }
+
+      file { '/var/spool/opt/hp/hpsmh/run/httpd.pid':
+        ensure  => $file_ensure_link,
+        target  => '/opt/hp/hpsmh/logs/httpd.pid',
+        before  => Service['hpsmhd'],
+        require => Package['hpsmh'],
       }
     }
     # If we are not on HP hardware, do not do anything.
