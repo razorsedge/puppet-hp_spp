@@ -1,6 +1,6 @@
 {
   "name": "razorsedge-hp_spp",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "razorsedge",
   "summary": "HP Service Pack for ProLiant hardware monitoring.",
   "license": "Apache-2.0",
