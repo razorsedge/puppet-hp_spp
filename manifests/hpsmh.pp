@@ -152,26 +152,26 @@ class hp_spp::hpsmh (
   $admin_group            = undef,
   $operator_group         = undef,
   $user_group             = undef,
-  $allow_default_os_admin = 'true',
-  $anonymous_access       = 'false',
-  $localaccess_enabled    = 'false',
+  $allow_default_os_admin = 'true', # lint:ignore:quoted_booleans
+  $anonymous_access       = 'false', # lint:ignore:quoted_booleans
+  $localaccess_enabled    = 'false', # lint:ignore:quoted_booleans
   $localaccess_type       = 'Anonymous',
   $trustmode              = 'TrustByCert',
   $xenamelist             = undef,
-  $ip_binding             = 'false',
+  $ip_binding             = 'false', # lint:ignore:quoted_booleans
   $ip_binding_list        = undef,
-  $ip_restricted_logins   = 'false',
+  $ip_restricted_logins   = 'false', # lint:ignore:quoted_booleans
   $ip_restricted_include  = undef,
   $ip_restricted_exclude  = undef,
-  $autostart              = 'false',
+  $autostart              = 'false', # lint:ignore:quoted_booleans
   $timeoutsmh             = 30,
-  $port2301               = 'true',
-  $iconview               = 'false',
+  $port2301               = 'true', # lint:ignore:quoted_booleans
+  $iconview               = 'false', # lint:ignore:quoted_booleans
   $box_order              = 'status',
   $box_item_order         = 'status',
   $session_timeout        = 15,
   $ui_timeout             = 120,
-  $httpd_error_log        = 'false',
+  $httpd_error_log        = 'false', # lint:ignore:quoted_booleans
   $multihomed             = undef,
   $rotate_logs_size       = 5
 ) inherits hp_spp::params {
@@ -187,6 +187,7 @@ class hp_spp::hpsmh (
         $package_ensure = 'present'
       }
       $file_ensure = 'present'
+      $file_ensure_link = 'link'
       if $service_ensure in [ running, stopped ] {
         $service_ensure_real = $service_ensure
         $service_enable_real = $service_enable
@@ -197,6 +198,7 @@ class hp_spp::hpsmh (
     /(absent)/: {
       $package_ensure = 'absent'
       $file_ensure = 'absent'
+      $file_ensure_link = 'absent'
       $service_ensure_real = 'stopped'
       $service_enable_real = false
     }
@@ -276,6 +278,13 @@ class hp_spp::hpsmh (
         hasrestart => true,
         hasstatus  => true,
         require    => Package['hpsmh'],
+      }
+
+      file { '/var/spool/opt/hp/hpsmh/run/httpd.pid':
+        ensure  => $file_ensure_link,
+        target  => '/opt/hp/hpsmh/logs/httpd.pid',
+        before  => Service['hpsmhd'],
+        require => Package['hpsmh'],
       }
     }
     # If we are not on HP hardware, do not do anything.

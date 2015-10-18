@@ -34,6 +34,7 @@ describe 'hp_spp::hpsmh', :type => 'class' do
         it { should_not contain_package('hpsmh') }
         it { should_not contain_file('hpsmhconfig') }
         it { should_not contain_service('hpsmhd') }
+        it { should_not contain_file('/var/spool/opt/hp/hpsmh/run/httpd.pid') }
       end
     end
   end
@@ -90,6 +91,7 @@ describe 'hp_spp::hpsmh', :type => 'class' do
           :ensure => 'running',
           :enable => true
         )}
+        it { should contain_file('/var/spool/opt/hp/hpsmh/run/httpd.pid').with_ensure('link') }
       end
 
       context "for operatingsystem #{os} operatingsystemrelease 6.0" do
@@ -142,6 +144,7 @@ describe 'hp_spp::hpsmh', :type => 'class' do
           :ensure => 'running',
           :enable => true
         )}
+        it { should contain_file('/var/spool/opt/hp/hpsmh/run/httpd.pid').with_ensure('link') }
       end
 
       context "for operatingsystem #{os} operatingsystemrelease 7.0" do
@@ -194,6 +197,7 @@ describe 'hp_spp::hpsmh', :type => 'class' do
           :ensure => 'running',
           :enable => true
         )}
+        it { should contain_file('/var/spool/opt/hp/hpsmh/run/httpd.pid').with_ensure('link') }
       end
     end
   end
