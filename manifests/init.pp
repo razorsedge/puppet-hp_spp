@@ -134,18 +134,18 @@ class hp_spp (
               service_ensure => $service_ensure,
               service_enable => $service_enable,
             }
-            Anchor['hp_spp::begin'] ->
-            Class['hp_spp::repo'] ->
-            Class['hp_spp::hphealth'] ->
-            Class['hp_spp::hpsnmp'] ->
-            Class['hp_spp::hpsmh'] ->
-            Anchor['hp_spp::end']
+            Anchor['hp_spp::begin']
+            -> Class['hp_spp::repo']
+            -> Class['hp_spp::hphealth']
+            -> Class['hp_spp::hpsnmp']
+            -> Class['hp_spp::hpsmh']
+            -> Anchor['hp_spp::end']
           } else {
-            Anchor['hp_spp::begin'] ->
-            Class['hp_spp::repo'] ->
-            Class['hp_spp::hphealth'] ->
-            Class['hp_spp::hpsnmp'] ->
-            Anchor['hp_spp::end']
+            Anchor['hp_spp::begin']
+            -> Class['hp_spp::repo']
+            -> Class['hp_spp::hphealth']
+            -> Class['hp_spp::hpsnmp']
+            -> Anchor['hp_spp::end']
           }
         }
         # If we are not on a supported OS, do not do anything.

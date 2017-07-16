@@ -7,7 +7,8 @@ describe 'hp_spp::hpams', :type => 'class' do
   context 'on a non-supported operatingsystem' do
     let :facts do {
       :osfamily        => 'foo',
-      :operatingsystem => 'foo'
+      :operatingsystem => 'foo',
+      :operatingsystemrelease => '1'
     }
     end
     it 'should fail' do
@@ -23,6 +24,7 @@ describe 'hp_spp::hpams', :type => 'class' do
         let(:params) {{}}
         let :facts do {
           :operatingsystem => os,
+          :operatingsystemrelease => '6.0',
           :manufacturer    => 'foo'
         }
         end
@@ -38,6 +40,7 @@ describe 'hp_spp::hpams', :type => 'class' do
         let(:pre_condition) { 'class {"hp_spp::repo":}' }
         let :facts do {
           :operatingsystem => os,
+          :operatingsystemrelease => '6.0',
           :manufacturer    => 'HP'
         }
         end
@@ -59,6 +62,7 @@ describe 'hp_spp::hpams', :type => 'class' do
         end
         let :facts do {
           :operatingsystem => os,
+          :operatingsystemrelease => '6.0',
           :manufacturer    => 'HP'
         }
         end

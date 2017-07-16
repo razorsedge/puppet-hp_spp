@@ -7,7 +7,8 @@ describe 'hp_spp::hpsnmp', :type => 'class' do
   context 'on a non-supported operatingsystem' do
     let :facts do {
       :osfamily        => 'foo',
-      :operatingsystem => 'foo'
+      :operatingsystem => 'foo',
+      :operatingsystemrelease => '1'
     }
     end
     it 'should fail' do
@@ -23,6 +24,7 @@ describe 'hp_spp::hpsnmp', :type => 'class' do
         let(:params) {{ :cmalocalhostrwcommstr => 'aString' }}
         let :facts do {
           :operatingsystem => os,
+          :operatingsystemrelease => '6.0',
           :manufacturer    => 'foo'
         }
         end

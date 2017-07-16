@@ -24,33 +24,43 @@ class hp_spp::params {
 
   # If we have a top scope variable defined, use it, otherwise fall back to a
   # hardcoded value.
-  $yum_server = $::hp_spp_yum_server ? {
-    undef   => 'http://downloads.linux.hpe.com',
-    default => $::hp_spp_yum_server,
+  $hp_spp_yum_server = getvar('::hp_spp_yum_server')
+  if $hp_spp_yum_server {
+    $yum_server = $::hp_spp_yum_server
+  } else {
+    $yum_server = 'http://downloads.linux.hpe.com'
   }
 
-  $spp_version = $::hp_spp_spp_version ? {
-    undef   => 'current',
-    default => $::hp_spp_spp_version,
+  $hp_spp_spp_version = getvar('::hp_spp_spp_version')
+  if $hp_spp_spp_version {
+    $spp_version = $::hp_spp_spp_version
+  } else {
+    $spp_version = 'current'
   }
 
 ### The following parameters should not need to be changed.
 
-  $ensure = $::hp_spp_ensure ? {
-    undef => 'present',
-    default => $::hp_spp_ensure,
+  $hp_spp_ensure = getvar('::hp_spp_ensure')
+  if $hp_spp_ensure {
+    $ensure = $::hp_spp_ensure
+  } else {
+    $ensure = 'present'
   }
 
-  $service_ensure = $::hp_spp_service_ensure ? {
-    undef => 'running',
-    default => $::hp_spp_service_ensure,
+  $hp_spp_service_ensure = getvar('::hp_spp_service_ensure')
+  if $hp_spp_service_ensure {
+    $service_ensure = $::hp_spp_service_ensure
+  } else {
+    $service_ensure = 'running'
   }
 
   # Since the top scope variable could be a string (if from an ENC), we might
   # need to convert it to a boolean.
-  $autoupgrade = $::hp_spp_autoupgrade ? {
-    undef => false,
-    default => $::hp_spp_autoupgrade,
+  $hp_spp_autoupgrade = getvar('::hp_spp_autoupgrade')
+  if $hp_spp_autoupgrade {
+    $autoupgrade = $::hp_spp_autoupgrade
+  } else {
+    $autoupgrade = false
   }
   if is_string($autoupgrade) {
     $safe_autoupgrade = str2bool($autoupgrade)
@@ -58,9 +68,11 @@ class hp_spp::params {
     $safe_autoupgrade = $autoupgrade
   }
 
-  $service_enable = $::hp_spp_service_enable ? {
-    undef => true,
-    default => $::hp_spp_service_enable,
+  $hp_spp_service_enable = getvar('::hp_spp_service_enable')
+  if $hp_spp_service_enable {
+    $service_enable = $::hp_spp_service_enable
+  } else {
+    $service_enable = true
   }
   if is_string($service_enable) {
     $safe_service_enable = str2bool($service_enable)
@@ -102,7 +114,10 @@ class hp_spp::params {
           $arrayweb_package_name = 'hpssa'
           $arraycli_package_name = 'hpssacli'
         }
-        default: { }
+        default: {
+          $arrayweb_package_name = unset
+          $arraycli_package_name = unset
+        }
       }
     }
     # If we are not on a supported OS, do not do anything.
