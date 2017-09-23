@@ -18,7 +18,7 @@ describe 'hp_spp', :type => 'class' do
     end
   end
 
-  redhatish = ['RedHat']
+  redhatish = ['RedHat', 'CentOS']
 
   context 'on a supported operatingsystem, non-HP platform' do
     redhatish.each do |os|

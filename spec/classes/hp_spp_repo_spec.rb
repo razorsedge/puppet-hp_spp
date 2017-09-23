@@ -18,8 +18,10 @@ describe 'hp_spp::repo', :type => 'class' do
     end
   end
 
+  redhatish = ['RedHat', 'CentOS' ]
+
   context 'on a supported operatingsystem, non-HP platform' do
-    (['RedHat']).each do |os|
+    redhatish.each do |os|
       context "for operatingsystem #{os}" do
         let(:params) {{}}
         let :facts do {
@@ -34,7 +36,7 @@ describe 'hp_spp::repo', :type => 'class' do
   end
 
   context 'on a supported operatingsystem, HP platform, default parameters' do
-    (['RedHat']).each do |os|
+    redhatish.each do |os|
       context "for operatingsystem #{os}" do
         let(:params) {{}}
         let :facts do {

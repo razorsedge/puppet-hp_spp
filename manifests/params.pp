@@ -83,7 +83,7 @@ class hp_spp::params {
   $gpg_path = '/SDR/'
 
   case $::operatingsystem {
-    'RedHat': {
+    'RedHat', 'CentOS': {
       $yum_path = '/SDR/repo/spp/RedHat/$releasever/$basearch/'
       case $::operatingsystemrelease {
         /^5.[0-2]$/: {
