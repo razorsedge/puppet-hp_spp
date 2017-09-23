@@ -24,6 +24,7 @@ Actions:
 OS Support:
 
 * RedHat - tested on RHEL 6.4
+* CentOS - tested on CentOS 7.4.1708
 * SuSE   - presently unsupported (patches welcome)
 
 Class documentation is available via puppetdoc.
@@ -51,7 +52,8 @@ class { 'hp_spp':
 Notes
 -----
 
-* Only tested on RedHat 6.4 x86_64 on a HP DL360 G5.
+* Tested on RedHat 6.4 x86_64 on a HP DL360 G5.
+* Tested on CentOS 7.4.1708 x86_64 on a HP Apollo 4200 G9
 
 Issues
 ------

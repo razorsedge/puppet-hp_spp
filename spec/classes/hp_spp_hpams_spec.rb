@@ -18,8 +18,10 @@ describe 'hp_spp::hpams', :type => 'class' do
     end
   end
 
+  redhatish = ['RedHat', 'CentOS']
+
   context 'on a supported operatingsystem, non-HP platform' do
-    (['RedHat']).each do |os|
+    redhatish.each do |os|
       context "for operatingsystem #{os}" do
         let(:params) {{}}
         let :facts do {
@@ -35,7 +37,7 @@ describe 'hp_spp::hpams', :type => 'class' do
   end
 
   context 'on a supported operatingsystem, HP platform, default parameters' do
-    (['RedHat']).each do |os|
+    redhatish.each do |os|
       context "for operatingsystem #{os}" do
         let(:pre_condition) { 'class {"hp_spp::repo":}' }
         let :facts do {
@@ -52,7 +54,7 @@ describe 'hp_spp::hpams', :type => 'class' do
   end
 
   context 'on a supported operatingsystem, HP platform, custom parameters' do
-    (['RedHat']).each do |os|
+    redhatish.each do |os|
       context "for operatingsystem #{os}" do
         let(:pre_condition) { 'class {"hp_spp::repo":}' }
         let :params do {

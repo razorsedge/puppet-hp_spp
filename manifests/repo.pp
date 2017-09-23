@@ -66,7 +66,7 @@ class hp_spp::repo (
   case $::manufacturer {
     'HP': {
       case $::operatingsystem {
-        'RedHat': {
+        'RedHat', 'CentOS': {
           yumrepo { 'HP-spp':
             descr    => 'HP Software Delivery Repository for Service Pack for ProLiant',
             enabled  => $enabled,

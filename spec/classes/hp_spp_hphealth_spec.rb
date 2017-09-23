@@ -18,8 +18,10 @@ describe 'hp_spp::hphealth', :type => 'class' do
     end
   end
 
+  redhatish = ['RedHat', 'CentOS']
+
   context 'on a supported operatingsystem, non-HP platform' do
-    (['RedHat']).each do |os|
+    redhatish.each do |os|
       context "for operatingsystem #{os}" do
         let(:params) {{}}
         let :facts do {
@@ -41,7 +43,7 @@ describe 'hp_spp::hphealth', :type => 'class' do
   end
 
   context 'on a supported operatingsystem, HP platform, default parameters' do
-    (['RedHat']).each do |os|
+    redhatish.each do |os|
       context "for operatingsystem #{os}" do
         let :facts do {
           :operatingsystem => os,
@@ -137,7 +139,7 @@ describe 'hp_spp::hphealth', :type => 'class' do
   end
 
   context 'on a supported operatingsystem, HP platform, custom parameters' do
-    (['RedHat']).each do |os|
+    redhatish.each do |os|
       context "for operatingsystem #{os} operatingsystemrelease 6.0" do
         let :params do {
           :autoupgrade    => true,
